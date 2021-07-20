@@ -1,13 +1,20 @@
-import { Container } from '../components/Container'
+import clsx from 'clsx'
 import { FormEvent, useState } from 'react'
 import { nanoid } from 'nanoid'
-import clsx from 'clsx'
+
+import { Container } from '../components/Container'
 
 type ListItem = {
   title: string
   isChecked: boolean
   id: string
 }
+
+const createListItem = (title: string): ListItem => ({
+  title,
+  isChecked: false,
+  id: nanoid(),
+})
 
 const HomePage = () => {
   const [value, setValue] = useState('')
@@ -16,11 +23,7 @@ const HomePage = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const listItem: ListItem = {
-      title: value,
-      isChecked: false,
-      id: nanoid(),
-    }
+    const listItem = createListItem(value)
 
     setValue('')
     setList((prev) => [...prev, listItem])
